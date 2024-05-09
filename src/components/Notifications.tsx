@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase/firebase-config";
+import "../styles/index.css";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState<any[]>([]);
@@ -48,10 +49,19 @@ const Notifications = () => {
   return (
     <div>
       {notifications.length &&
-        notifications.map((notif) => (
+        notifications.map((notif, index) => (
           <div key={notif?.id} onClick={() => markAsRead(notif?.id)}>
             <p>
-              {notif?.message} - Read: {notif?.read ? "Yes" : "No"}
+              <span
+                className={
+                  notif?.read
+                    ? "seen-notification-color"
+                    : "unseen-notification-color"
+                }
+              >
+                {notif?.message}
+              </span>{" "}
+              - Read: {notif?.read ? "Yes" : "No"}
             </p>
           </div>
         ))}
